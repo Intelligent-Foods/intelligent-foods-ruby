@@ -1,0 +1,3 @@
+module IntelligentFoods
+  VERSION: String
+end
