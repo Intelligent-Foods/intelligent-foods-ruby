@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Ruby SDK for the Intelligent Foods API"
   spec.homepage = "https://intelligentfoods.com"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 3.1"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
+
+  spec.add_development_dependency "pry", "~> 0.14"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html

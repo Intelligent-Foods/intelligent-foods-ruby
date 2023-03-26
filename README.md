@@ -1,12 +1,5 @@
 # IntelligentFoods
 
-Welcome to your new gem! In this directory, you'll find the files you need to
-be able to package up your Ruby library into a gem. Put your Ruby code in the
-file `lib/intelligent_foods`. To experiment with that code, run `bin/console`
-for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
@@ -18,9 +11,28 @@ executing:
 
     $ gem install intelligent-foods-ruby
 
-## Usage
+## Getting Started
 
-TODO: Write usage instructions here
+### Setup Work
+
+```
+require "intelligent-foods-ruby"
+
+IntelligentFoods.configure do |config|
+  config.client_id = "XXXXXX"
+  config.client_secret = "YYYYYY"
+  config.environment = "preview"
+end
+```
+
+### Authentication
+
+```
+@client = IntelligentFoods.client
+@client.authenticate!
+```
+
+### Usage
 
 ## Development
 
