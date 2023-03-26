@@ -1,5 +1,313 @@
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.5
+  Include:
+    - "**/Rakefile"
+    - "**/config.ru"
+  Exclude:
+    - "db/**/*"
+    - "bin/**/*"
+    - "test/tmp/**/*"
+    - "vendor/bundle/**/*"
+    - "config/**/*"
+    - "script/**/*"
+
+Layout/ConditionPosition:
+  Enabled: false
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/EmptyLinesAroundAccessModifier:
+  Description: "Keep blank lines around access modifiers."
+  Enabled: true
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: true
+
+Layout/InitialIndentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 80
+  Exclude:
+    - "**/Gemfile"
+
+Layout/MultilineOperationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Layout/TrailingEmptyLines:
+  Enabled: false
+
+Lint/AmbiguousOperator:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Lint/CircularArgumentReference:
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Enabled: false
+
+Lint/DuplicateHashKey:
+  Enabled: false
+
+Lint/EachWithObjectArgument:
+  Enabled: false
+
+Lint/ElseLayout:
+  Enabled: false
+
+Lint/FormatParameterMismatch:
+  Enabled: false
+
+Lint/LiteralAsCondition:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: false
+
+Lint/LiteralInInterpolation:
+  Enabled: false
+
+Lint/Loop:
+  Enabled: false
+
+Lint/NestedMethodDefinition:
+  Enabled: false
+
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+
+Lint/RequireParentheses:
+  Enabled: false
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*.rake"
+    - "spec/**/*.rb"
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/AsciiIdentifiers:
+  Enabled: false
+
+Naming/BinaryOperatorParameterName:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: optional
+
+Naming/PredicateName:
+  ForbiddenPrefixes:
+    - is_
+  Exclude:
+    - spec/**/*
+
+Style/Alias:
+  Enabled: false
+
+Style/ArrayJoin:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Attr:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/CaseEquality:
+  Enabled: false
+
+Style/CharacterLiteral:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Style/CollectionMethods:
+  Enabled: true
+  PreferredMethods:
+    find: detect
+    inject: reduce
+    collect: map
+    find_all: select
+
+Style/ColonMethodCall:
+  Enabled: false
+
+Style/CommentAnnotation:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/EmptyLiteral:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Style/EvenOdd:
+  Enabled: false
+
+Style/FlipFlop:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/IfWithSemicolon:
+  Enabled: false
+
+Style/InlineComment:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/LineEndConcatenation:
+  Enabled: false
+
+Style/ModuleFunction:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Description: "Avoid multi-line chains of blocks."
+  StyleGuide: "https://github.com/bbatsov/ruby-style-guide#single-line-blocks"
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/NegatedWhile:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/NilComparison:
+  Enabled: false
+
+Style/Not:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/OneLineConditional:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Style/PreferredHashMethods:
+  Enabled: false
+
+Style/Proc:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Performance/Sample:
+  Enabled: false
+
+Style/SelfAssignment:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SingleLineMethods:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: true
@@ -9,5 +317,42 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
-Layout/LineLength:
-  Max: 120
+Style/SymbolArray:
+  Enabled: true
+  EnforcedStyle: brackets
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+  SupportedStyles:
+    - comma
+    - consistent_comma
+    - no_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+  SupportedStyles:
+    - comma
+    - consistent_comma
+    - no_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+  SupportedStyles:
+    - comma
+    - consistent_comma
+    - no_comma
+
+Style/TrivialAccessors:
+  Enabled: false
+
+Style/VariableInterpolation:
+  Enabled: false
+
+Style/WhenThen:
+  Enabled: false
+
+Style/WhileUntilModifier:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
