@@ -1,5 +1,6 @@
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.1
+  SuggestExtensions: false
   Include:
     - "**/Rakefile"
     - "**/config.ru"
@@ -10,6 +11,7 @@ AllCops:
     - "vendor/bundle/**/*"
     - "config/**/*"
     - "script/**/*"
+  NewCops: enable
 
 Layout/ConditionPosition:
   Enabled: false
@@ -39,7 +41,7 @@ Layout/ExtraSpacing:
 Layout/InitialIndentation:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 80
   Exclude:
     - "**/Gemfile"
@@ -211,7 +213,7 @@ Style/Encoding:
 Style/EvenOdd:
   Enabled: false
 
-Style/FlipFlop:
+Lint/FlipFlop:
   Enabled: false
 
 Style/FormatString:
@@ -291,7 +293,7 @@ Style/RaiseArgs:
 Style/RegexpLiteral:
   Enabled: false
 
-Performance/Sample:
+Style/Sample:
   Enabled: false
 
 Style/SelfAssignment:
@@ -323,21 +325,21 @@ Style/SymbolArray:
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: no_comma
-  SupportedStyles:
+  SupportedStylesForMultiline:
     - comma
     - consistent_comma
     - no_comma
 
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
-  SupportedStyles:
+  SupportedStylesForMultiline:
     - comma
     - consistent_comma
     - no_comma
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
-  SupportedStyles:
+  SupportedStylesForMultiline:
     - comma
     - consistent_comma
     - no_comma
