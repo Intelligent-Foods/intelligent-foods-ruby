@@ -23,27 +23,6 @@ RSpec.describe IntelligentFoods::ApiClient do
       expect(request["content-type"]).to eq(content_type)
     end
 
-    it "sets the authorization header" do
-      stub_authentication
-      request = build_stubbed_post
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      header = "Basic #{build_encoded_token(id: "id", secret: "secret")}"
-
-      client.authenticate!
-
-      expect(request["Authorization"]).to eq(header)
-    end
-
-    it "sets the request body" do
-      stub_authentication
-      request = build_stubbed_post
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-
-      client.authenticate!
-
-      expect(request.body).to eq("grant_type=client_credentials")
-    end
-
     context "there is an error with the request" do
       it "raises an error" do
         response = error_response(message: "Could not perform request")
@@ -54,6 +33,45 @@ RSpec.describe IntelligentFoods::ApiClient do
           client.authenticate!
         }.to raise_error("Could not perform request")
       end
+    end
+  end
+
+  describe "#execute_request" do
+    it "sets the authorization header" do
+      stub_api_response
+      request = build_stubbed_post
+      uri = URI("https://example.com")
+      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+      header = "Basic #{build_encoded_token(id: "id", secret: "secret")}"
+
+      client.execute_request(request: request, uri: uri)
+
+      expect(request["Authorization"]).to eq(header)
+    end
+
+    it "sets the request body" do
+      stub_api_response
+      request = build_stubbed_post
+      uri = URI("https://example.com")
+      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+      body = { "grant_type" => "client_credentials" }
+
+      client.execute_request(request: request, uri: uri, body: body)
+
+      expect(request.body).to eq("grant_type=client_credentials")
+    end
+
+    it "makes the request" do
+      request = build_stubbed_post
+      http_client = double
+      allow(http_client).to receive(:request)
+      stub_api_response http: http_client
+      uri = URI("https://example.com")
+      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+
+      client.execute_request(request: request, uri: uri)
+
+      expect(http_client).to have_received(:request).with(request).once
     end
   end
 end

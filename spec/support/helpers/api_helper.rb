@@ -12,7 +12,7 @@ module ApiHelper
     stub_api_response response: response
   end
 
-  def stub_api_response(response:, http: double)
+  def stub_api_response(response: OpenStruct.new(body: "{}"), http: double)
     allow(Net::HTTP).to receive(:start).and_yield(http)
     allow(http).to receive(:request).and_return(response)
   end
@@ -23,8 +23,8 @@ module ApiHelper
     request
   end
 
-  def build_response(body:)
-    OpenStruct.new(body: JSON.generate(body))
+  def build_response(body: {}, http_status_code: 200)
+    OpenStruct.new(body: JSON.generate(body), code: http_status_code)
   end
 
   def build_encoded_token(id:, secret:)
