@@ -2,6 +2,7 @@
 
 require "pry"
 require "intelligent_foods"
+require "webmock"
 
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
@@ -18,3 +19,5 @@ RSpec.configure do |config|
 
   config.include ApiHelper
 end
+
+WebMock.disable_net_connect!(allow_localhost: true)

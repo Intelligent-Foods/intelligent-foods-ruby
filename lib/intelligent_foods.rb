@@ -5,8 +5,9 @@ require "json"
 require "net/http"
 require "ostruct"
 
-require "intelligent_foods/version"
 require "intelligent_foods/api_client"
+require "intelligent_foods/resources/menu"
+require "intelligent_foods/version"
 
 module IntelligentFoods
   class Error < StandardError; end
