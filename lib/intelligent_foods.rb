@@ -7,6 +7,7 @@ require "ostruct"
 
 require "intelligent_foods/version"
 require "intelligent_foods/api_client"
+require "intelligent_foods/menu"
 
 module IntelligentFoods
   class Error < StandardError; end
