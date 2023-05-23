@@ -40,7 +40,6 @@ module IntelligentFoods
 
     def assign_body(request:, body:)
       return if body.nil?
-
       request.set_form_data(body)
     end
 

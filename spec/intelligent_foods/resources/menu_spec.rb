@@ -24,4 +24,55 @@ RSpec.describe IntelligentFoods::Menu do
       end
     end
   end
+
+  describe ".find" do
+    it "returns the menu" do
+      menu_id = "2023-01-01"
+      body = build_menu_response(menu_id: menu_id)
+      response = build_response(body: body)
+      stub_api_response response: response
+
+      result = IntelligentFoods::Menu.find(menu_id)
+
+      expect(result.id).to eq(menu_id)
+    end
+
+    it "assigns correct number of items" do
+      menu_id = "2023-01-01"
+      expected_items_count = 2
+      menu_items = stub_menu_items(number_of_items: expected_items_count)
+      body = build_menu_response(menu_id: menu_id, menu_items: menu_items)
+      response = build_response(body: body)
+      stub_api_response response: response
+      menu = IntelligentFoods::Menu.find(menu_id)
+
+      result = menu.items.size
+
+      expect(result).to eq(expected_items_count)
+    end
+
+    context "the id does not match a menu" do
+      it "raises a IntelligentFoods::MenuNotFound error" do
+        menu_id = "2023-01-01"
+        body = build_error("Menu not found", menu_id)
+        response = build_response(body: body, http_status_code: 400)
+        stub_api_response response: response
+
+        expect {
+          IntelligentFoods::Menu.find(menu_id)
+        }.to raise_error(IntelligentFoods::MenuNotFoundError)
+      end
+    end
+  end
+
+  def build_error(message, menu_id)
+    {
+      type: "https://api.sunbasket.com/partner/problem/menu_not_found",
+      status: 404,
+      title: message,
+      instance: "https://api.sunbasket.com/partner/menu/2020-09-03",
+      detail: message,
+      extra: { menu_id: menu_id },
+    }
+  end
 end
