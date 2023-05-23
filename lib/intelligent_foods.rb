@@ -9,7 +9,10 @@ require "intelligent_foods/api_client"
 require "intelligent_foods/authorization"
 require "intelligent_foods/authorization/basic"
 require "intelligent_foods/authorization/bearer"
+require "intelligent_foods/errors"
+require "intelligent_foods/resources/object"
 require "intelligent_foods/resources/menu"
+require "intelligent_foods/resources/menu_item"
 require "intelligent_foods/version"
 
 module IntelligentFoods

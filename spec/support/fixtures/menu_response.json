@@ -1,0 +1,102 @@
+{
+  "id": "2023-05-28",
+  "deadline": "2023-05-24T19:00:00Z",
+  "shipping_fee": 9.99,
+  "items": [
+    {
+      "id": "70f79b16f64b42918b153a2f03b10bea",
+      "sku": "MP0501",
+      "type": "MARKET",
+      "sub_type": "SNACK",
+      "main_category": "SNACK",
+      "sub_category": "NUTS_SEEDS",
+      "name": "Rosemary Maple Sea Salt Almonds (2 count)",
+      "description": "We’re nuts about these savory-sweet almonds. Sourced from family farms in California’s San Joaquin Valley, the almonds are roasted with aromatic rosemary and Vermont pure maple syrup, then finished with a light sprinkling of sea salt. Eat them as snacks, toss into salads, or serve a bowlful at your next party.",
+      "slug": "rosemary-maple-sea-salt-almonds-2-count",
+      "image_id": "ddf22c72-3b56-46a3-b5b9-4c4e724ef474.jpg",
+      "tags": [
+        "NEW"
+      ],
+      "brand_name": "Nuts + Nuts",
+      "quantity": 2,
+      "list_price": 4.99,
+      "unit_size": 2.5,
+      "unit_of_measure": "OZ",
+      "allergens": [
+        {
+          "name": "TREE_NUTS",
+          "source": "almond"
+        }
+      ],
+      "diet_types": [
+        "PALEO",
+        "VEGAN",
+        "VEGETARIAN"
+      ]
+    },
+    {
+      "id": "0a66650369f34f3d9ca1f5609e18fa30",
+      "sku": "S17",
+      "type": "PROTEIN",
+      "protein_type": "FISH",
+      "name": "Alaskan Halibut Fillets (6 oz / serving)",
+      "description": "Firm, meaty Alaskan halibut is one of the world’s premium whitefish. The fact that it maintains its shape helps make it easy to cook, while its sweet, delicate flavor means it goes well with a wide range of seasonings. Our 6-ounce fillets are an excellent source of protein, yet they have just 150 calories with only 2.5 grams of fat.",
+      "slug": "alaskan-halibut-fillets-6-oz--serving",
+      "image_id": "df46d00c-925f-48a2-8047-8738bb9b71a7.jpg",
+      "tags": [
+        "WILD_CAUGHT",
+        "SUSTAINABLY_SOURCED"
+      ],
+      "quantity": 1,
+      "unit_size": 12,
+      "unit_of_measure": "OZ",
+      "allergens": [
+        {
+          "name": "FISH",
+          "source": "halibut"
+        }
+      ]
+    },
+    {
+      "id": "9d5952057ac147339bf6681028e20ed6",
+      "sku": "J246",
+      "type": "MEAL",
+      "sub_type": "FRESH_AND_READY",
+      "main_category": "DINNER",
+      "sub_category": "OVEN_READY",
+      "protein_type": "CHICKEN",
+      "name": "Buffalo grilled chicken breast over cauliflower-potato mash",
+      "description": "For some of us, wings just aren’t big enough. We smother a whole chicken breast in our paleo Buffalo sauce and serve it over a mound of smooth cauliflower mash for a meal made in hot heaven.",
+      "slug": "buffalo-grilled-chicken-breast-over-cauliflower-potato-mash",
+      "image_id": "dcd2b1e9-27dd-465a-9947-7be89fb0bc47.jpg",
+      "tags": [
+        "FRESH_AND_READY"
+      ],
+      "quantity": 1,
+      "list_price": 12.99,
+      "unit_size": 1,
+      "unit_of_measure": "SERVINGS",
+      "calories_per_serving": 380,
+      "allergens": [
+        {
+          "name": "MILK"
+        },
+        {
+          "name": "TREE_NUTS",
+          "source": "almond"
+        }
+      ],
+      "diet_types": [
+        "CARB_CONSCIOUS",
+        "GLUTEN_FREE_FRIENDLY",
+        "KETO_FRIENDLY",
+        "LESS_CALORIES",
+        "NO_ADDED_SUGAR",
+        "PALEO",
+        "PROTEIN_PLUS",
+        "SOY_FREE",
+        "SPICY"
+      ]
+    }
+  ]
+}
