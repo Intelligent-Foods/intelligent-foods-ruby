@@ -17,7 +17,7 @@ module IntelligentFoods
 
     def configure
       yield self
-      configure_enviroment
+      configure_environment
     end
 
     def base_auth_url
@@ -37,7 +37,7 @@ module IntelligentFoods
 
     attr_reader :domain, :auth_domain
 
-    def configure_enviroment
+    def configure_environment
       case environment
       when "production"
         @auth_domain = "sunbasket-partner"
