@@ -6,6 +6,9 @@ require "net/http"
 require "ostruct"
 
 require "intelligent_foods/api_client"
+require "intelligent_foods/authorization"
+require "intelligent_foods/authorization/basic"
+require "intelligent_foods/authorization/bearer"
 require "intelligent_foods/resources/menu"
 require "intelligent_foods/version"
 

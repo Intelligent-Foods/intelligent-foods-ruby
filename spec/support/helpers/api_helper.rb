@@ -4,7 +4,7 @@ module ApiHelper
   end
 
   def error_response(message: "Unknown error")
-    build_response body: { errors: [message] }
+    build_response body: { error: message }
   end
 
   def stub_authentication(access_token: "indifferenttoken")
