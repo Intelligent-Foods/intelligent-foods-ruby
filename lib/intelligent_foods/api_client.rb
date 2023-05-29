@@ -8,7 +8,6 @@ module IntelligentFoods
       @id = id
       @secret = secret
       @client = client || Net::HTTP
-      @encoded_token = Base64.strict_encode64("#{id}:#{secret}")
     end
 
     def authenticate!
@@ -16,14 +15,18 @@ module IntelligentFoods
       request = Net::HTTP::Post.new(uri)
       request["content-type"] = "application/x-www-form-urlencoded"
       body = { "grant_type" => "client_credentials" }
-      response = execute_request(request: request, uri: uri, body: body)
-      extract_access_token response: response.data
+      authorization = IntelligentFoods::Authorization::Basic.
+                      factory(client_id: id, client_secret: secret)
+      response = execute_request(request: request, uri: uri, body: body,
+                                 authorization: authorization)
+      handle_authentication_response(response: response.data)
       self
     end
 
-    def execute_request(request:, uri:, body: nil)
+    def execute_request(request:, uri:, body: nil,
+                        authorization: default_authorization)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        request["Authorization"] = "Basic #{encoded_token}"
+        request["Authorization"] = authorization.header
         assign_body request: request, body: body
         response = http.request(request)
         OpenStruct.new(data: JSON.parse(response.body, symbolize_names: true),
@@ -37,19 +40,29 @@ module IntelligentFoods
 
     def assign_body(request:, body:)
       return if body.nil?
+
       request.set_form_data(body)
     end
 
-    def extract_access_token(response:)
-      if response.has_key? :errors
-        handle_errors response[:errors]
+    def handle_authentication_response(response:)
+      if response_has_errors?(response)
+        handle_errors(response)
       else
         @access_token = response[:access_token]
       end
     end
 
-    def handle_errors(errors)
-      fail IntelligentFoods::Error.new(errors.first)
+    def response_has_errors?(response)
+      response.has_key?(:error)
+    end
+
+    def handle_errors(response)
+      error = response[:error]
+      fail IntelligentFoods::Error.new(error)
+    end
+
+    def default_authorization
+      IntelligentFoods::Authorization::Bearer.new(token: access_token)
     end
   end
 end

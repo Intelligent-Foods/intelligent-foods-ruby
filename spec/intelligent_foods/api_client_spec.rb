@@ -12,6 +12,17 @@ RSpec.describe IntelligentFoods::ApiClient do
       expect(client.access_token).to eq(access_token)
     end
 
+    it "sets the authorization basic header" do
+      stub_authentication
+      request = build_stubbed_post
+      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+      header = "Basic #{build_encoded_token(id: "id", secret: "secret")}"
+
+      client.authenticate!
+
+      expect(request["Authorization"]).to eq(header)
+    end
+
     it "sets the content type header" do
       stub_authentication
       request = build_stubbed_post
@@ -37,12 +48,15 @@ RSpec.describe IntelligentFoods::ApiClient do
   end
 
   describe "#execute_request" do
-    it "sets the authorization header" do
+    it "sets the authorization bearer header" do
       stub_api_response
       request = build_stubbed_post
       uri = URI("https://example.com")
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      header = "Basic #{build_encoded_token(id: "id", secret: "secret")}"
+      client = IntelligentFoods::ApiClient.new
+      auth = IntelligentFoods::Authorization::Bearer.new(token: "1234")
+      allow(IntelligentFoods::Authorization::Bearer).to receive(:new).
+        and_return(auth)
+      header = "Bearer 1234"
 
       client.execute_request(request: request, uri: uri)
 
