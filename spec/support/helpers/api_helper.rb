@@ -5,8 +5,8 @@ module ApiHelper
     build_response body: { access_token: access_token }
   end
 
-  def error_response(message: "Unknown error")
-    build_response body: { error: message }
+  def error_response(message: "Unknown error", http_status_code: 400)
+    build_response(body: { error: message }, http_status_code: http_status_code)
   end
 
   def stub_authentication(access_token: "indifferenttoken")
