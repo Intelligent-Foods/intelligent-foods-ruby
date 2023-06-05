@@ -2,8 +2,6 @@
 
 module IntelligentFoods
   class Order < IntelligentFoods::Object
-    attr_reader :status
-
     ACCEPTED = "accepted"
     CANCELLED = "cancelled"
     ERROR = "error"
@@ -12,22 +10,52 @@ module IntelligentFoods
     PROCESSED = "processed"
 
     def initialize(args = {})
-      @status = INITIALIZED
       super
+    end
+
+    def self.build_from_response(data)
+      order = build(data)
+      order[:items] = OrderItem.build(data[:items])
+      order[:ship_to] = Recipient.build(data[:ship_to])
+      order
+    end
+
+    def create!
+      uri = URI("#{IntelligentFoods.base_url}/order")
+      request = client.build_request_with_body(uri: uri,
+                                               body: request_body)
+      response = client.execute_request(request: request, uri: uri)
+      if response.success?
+        Order::build_from_response(response.data)
+      else
+        mark_as_invalid
+        raise_error(OrderNotCreatedError, response)
+      end
     end
 
     def cancel!
       uri = URI("#{IntelligentFoods.base_url}/order/#{id}")
       request = Net::HTTP::Delete.new(uri)
-      client = IntelligentFoods.client
       response = client.execute_request(request: request, uri: uri)
       if response.success?
         mark_as_cancelled
         self
       else
         mark_as_invalid
-        raise OrderNotCancelledError
+        raise_error(OrderNotCancelledError, response)
       end
+    end
+
+    def request_body
+      @request_body ||= {
+        menu_id: menu.id,
+        reference_id: external_id,
+        ship_to: ship_to,
+        delivery_date: delivery_date,
+        items: items_json,
+        callback_url: callback_url,
+        callback_headers: "",
+      }
     end
 
     def cancelled?
@@ -38,14 +66,31 @@ module IntelligentFoods
       status.downcase != ERROR
     end
 
+    def accepted?
+      status.downcase == ACCEPTED
+    end
+
     protected
 
     def mark_as_cancelled
-      @status = CANCELLED
+      self[:status] = CANCELLED
     end
 
     def mark_as_invalid
-      @status = ERROR
+      self[:status] = ERROR
+    end
+
+    def items_json
+      return if items.nil?
+
+      items.map do |item|
+        OrderItemSerializer.new(item).to_json
+      end
+    end
+
+    def ship_to
+      RecipientSerializer.new(recipient).to_json
     end
   end
 end
+

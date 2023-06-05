@@ -34,6 +34,13 @@ module IntelligentFoods
       end
     end
 
+    def build_request_with_body(uri:, body:)
+      request = Net::HTTP::Post.new(uri)
+      request.body = body.to_json
+      request["content-type"] = "application/json"
+      request
+    end
+
     protected
 
     attr_reader :encoded_token, :request, :response, :uri

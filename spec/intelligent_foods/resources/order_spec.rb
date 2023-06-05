@@ -1,6 +1,93 @@
 # frozen_string_literal: true
 
 RSpec.describe IntelligentFoods::Order do
+  describe "#create!" do
+    it "creates the order" do
+      recipient = build(:recipient)
+      menu = build(:menu, id: "2023-01-01")
+      order_item = build(:order_item)
+      callback_url = "https://api.domain.com/callback"
+      order = IntelligentFoods::Order.new(menu: menu,
+                                          recipient: recipient,
+                                          delivery_date: "2023-01-07",
+                                          items: [order_item],
+                                          external_id: "1337",
+                                          callback_url: callback_url)
+      body = build_order_response
+      response = build_response(body: body)
+      stub_api_response response: response
+
+      result = order.create!
+
+      expect(result).to be_accepted
+    end
+
+    it "assigns the recipient in the request body" do
+      recipient = build(:recipient)
+      ship_to = IntelligentFoods::RecipientSerializer.new(recipient).to_json
+      menu = build(:menu, id: "2023-01-01")
+      order = IntelligentFoods::Order.new(recipient: recipient, menu: menu)
+      body = build_order_response
+      response = build_response(body: body)
+      stub_api_response response: response
+
+      result = order.request_body
+
+      expect(result[:ship_to]).to eq(ship_to)
+    end
+
+    it "assigns the order items in the request body" do
+      recipient = build(:recipient)
+      menu = build(:menu, id: "2023-01-01")
+      order_item = build(:order_item)
+      order_item_serialized = IntelligentFoods::OrderItemSerializer.
+                              new(order_item).
+                              to_json
+      order = IntelligentFoods::Order.new(recipient: recipient, menu: menu,
+                                          items: [order_item])
+      body = build_order_response
+      response = build_response(body: body)
+      stub_api_response response: response
+      expected_output = [order_item_serialized]
+
+      result = order.request_body
+
+      expect(result[:items]).to eq(expected_output)
+    end
+
+    context "the response code is not 201" do
+      it "raises a OrderNotCreatedError" do
+        recipient = build(:recipient)
+        menu = build(:menu, id: "2023-01-01")
+        order = IntelligentFoods::Order.new(recipient: recipient, menu: menu)
+        response = error_response(message: "Order Not Created",
+                                  http_status_code: 400)
+        stub_api_response response: response
+
+        expect {
+          order.create!
+        }.to raise_error(IntelligentFoods::OrderNotCreatedError)
+      end
+
+      it "marks the order as invalid" do
+        recipient = build(:recipient)
+        menu = build(:menu, id: "2023-01-01")
+        order = IntelligentFoods::Order.new(recipient: recipient, menu: menu)
+        response = error_response(message: "Order Not Created",
+                                  http_status_code: 400)
+        stub_api_response response: response
+
+        begin
+          order.create!
+        rescue IntelligentFoods::OrderNotCreatedError
+          # noop
+        end
+
+        expect(order).not_to be_valid
+      end
+    end
+  end
+
   describe "#cancel!" do
     it "cancels the order" do
       order = IntelligentFoods::Order.new(id: 1)

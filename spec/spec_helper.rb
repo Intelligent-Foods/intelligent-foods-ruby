@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "factory_bot"
 require "pry"
 require "intelligent_foods"
 require "webmock"
@@ -18,6 +19,8 @@ RSpec.configure do |config|
   end
 
   config.include ApiHelper
+  config.include FactoryBot::Syntax::Methods
+  config.before(:suite) { FactoryBot.reload }
 end
 
 WebMock.disable_net_connect!(allow_localhost: true)

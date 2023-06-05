@@ -1,5 +1,6 @@
 module ApiHelper
   MENU_API_RESPONSE = "spec/support/fixtures/menu_response.json".freeze
+  ORDER_API_RESPONSE = "spec/support/fixtures/order_response.json".freeze
 
   def authentication_response(access_token:)
     build_response body: { access_token: access_token }
@@ -34,7 +35,11 @@ module ApiHelper
   end
 
   def read_menu_api_response
-    JSON.parse(File.read(MENU_API_RESPONSE), symbolize_names: true)
+    parse_json_file(MENU_API_RESPONSE)
+  end
+
+  def read_order_api_response
+    parse_json_file(ORDER_API_RESPONSE)
   end
 
   def build_menu_response(menu_id: "2023-01-01", menu_items: [])
@@ -42,6 +47,10 @@ module ApiHelper
     stubbed_response[:id] = menu_id
     stubbed_response[:items] = menu_items
     stubbed_response
+  end
+
+  def build_order_response
+    read_order_api_response
   end
 
   def stubbed_menu_items
@@ -54,4 +63,11 @@ module ApiHelper
     however_many_items = number_of_items || response.size
     response.first(however_many_items)
   end
+
+  protected
+
+  def parse_json_file(path)
+    JSON.parse(File.read(path), symbolize_names: true)
+  end
+
 end
