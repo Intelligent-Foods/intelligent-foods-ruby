@@ -12,8 +12,13 @@ require "intelligent_foods/authorization/bearer"
 require "intelligent_foods/errors"
 require "intelligent_foods/resources/object"
 require "intelligent_foods/resources/order"
+require "intelligent_foods/resources/order_item"
+require "intelligent_foods/serializers/order_item_serializer"
 require "intelligent_foods/resources/menu"
 require "intelligent_foods/resources/menu_item"
+require "intelligent_foods/serializers/menu_item_serializer"
+require "intelligent_foods/resources/recipient"
+require "intelligent_foods/serializers/recipient_serializer"
 require "intelligent_foods/version"
 
 module IntelligentFoods

@@ -1,0 +1,94 @@
+{
+  "id": "65b597420cf24f90a541c19b3f003d04",
+  "menu_id": "2023-06-11",
+  "reference_id": "1ab696d5-23dc-4e0d-aa06-6099ef6cadb1",
+  "custom_1": "dolor sunt voluptate",
+  "custom_2": "nostrud ut ",
+  "custom_3": "i",
+  "ship_to": {
+    "name": "John Doe",
+    "street1": "123 Main St",
+    "street2": "Apt 2B",
+    "city": "Springfield",
+    "state": "NY",
+    "zip": "19191",
+    "zip4": "1234",
+    "email": "johndoe@foo.bar",
+    "phone": "1231231234",
+    "delivery_instructions": "Door code 2932"
+  },
+  "delivery_date": "2023-06-12",
+  "items": [
+    {
+      "id": "da0e111717cf48de85020fd90b0b7a5d",
+      "quantity": 5
+    }
+  ],
+  "user_id": "Zack31",
+  "projected_shipments": 2,
+  "callback_url": "https://api.sunbasket-dev.com/callback",
+  "callback_headers": {
+    "Authorization": "Bearer: 1234asdf"
+  },
+  "status": "ACCEPTED",
+  "shipments": [
+    {
+      "id": "a8352f06be574161bb611c8feeba02f7",
+      "menu_id": "2023-06-11",
+      "order_id": "65b597420cf24f90a541c19b3f003d04",
+      "reference_id": "1ab696d5-23dc-4e0d-aa06-6099ef6cadb1",
+      "ship_to": {
+        "name": "John Doe",
+        "street1": "123 Main St",
+        "street2": "Apt 2B",
+        "city": "Springfield",
+        "state": "NY",
+        "zip": "19191",
+        "zip4": "1234",
+        "email": "johndoe@foo.bar",
+        "phone": "1231231234"
+      },
+      "delivery_date": "2023-06-12",
+      "items": [
+        {
+          "id": "da0e111717cf48de85020fd90b0b7a5d",
+          "quantity": 3
+        }
+      ],
+      "status": "CREATED",
+      "delivery_status": "UNKNOWN",
+      "carrier": "FEDEX",
+      "shipment_number": 1,
+      "total_shipments": 2
+    },
+    {
+      "id": "4a4f71f35a7145c184d7130cb2107048",
+      "menu_id": "2023-06-11",
+      "order_id": "65b597420cf24f90a541c19b3f003d04",
+      "reference_id": "1ab696d5-23dc-4e0d-aa06-6099ef6cadb1",
+      "ship_to": {
+        "name": "John Doe",
+        "street1": "123 Main St",
+        "street2": "Apt 2B",
+        "city": "Springfield",
+        "state": "NY",
+        "zip": "19191",
+        "zip4": "1234",
+        "email": "johndoe@foo.bar",
+        "phone": "1231231234"
+      },
+      "delivery_date": "2023-06-12",
+      "items": [
+        {
+          "id": "da0e111717cf48de85020fd90b0b7a5d",
+          "quantity": 2
+        }
+      ],
+      "status": "CREATED",
+      "delivery_status": "UNKNOWN",
+      "carrier": "FEDEX",
+      "shipment_number": 2,
+      "total_shipments": 2
+    }
+  ]
+}
