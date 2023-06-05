@@ -2,4 +2,6 @@
 
 module IntelligentFoods
   class MenuNotFoundError < StandardError; end
+
+  class OrderNotCancelledError < StandardError; end
 end
