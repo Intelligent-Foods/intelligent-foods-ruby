@@ -6,7 +6,7 @@ module IntelligentFoods
       {
         id: id,
         protein_id: protein_id,
-        quantity: 1,
+        quantity: quantity,
       }
     end
   end

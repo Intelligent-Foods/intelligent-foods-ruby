@@ -39,7 +39,7 @@ RSpec.describe IntelligentFoods::Order do
     it "assigns the order items in the request body" do
       recipient = build(:recipient)
       menu = build(:menu, id: "2023-01-01")
-      order_item = build(:order_item)
+      order_item = build(:order_item, quantity: 2)
       order_item_serialized = IntelligentFoods::OrderItemSerializer.
                               new(order_item).
                               to_json
