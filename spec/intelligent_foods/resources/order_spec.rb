@@ -36,6 +36,21 @@ RSpec.describe IntelligentFoods::Order do
       expect(result[:ship_to]).to eq(ship_to)
     end
 
+    context "a recipient address value is an empty string" do
+      it "excludes it from the request body" do
+        recipient = build(:recipient, street2: "")
+        menu = build(:menu, id: "2023-01-01")
+        order = IntelligentFoods::Order.new(recipient: recipient, menu: menu)
+        body = build_order_response
+        response = build_response(body: body)
+        stub_api_response response: response
+
+        result = order.request_body[:ship_to]
+
+        expect(result).not_to have_key(:street2)
+      end
+    end
+
     it "assigns the order items in the request body" do
       recipient = build(:recipient)
       menu = build(:menu, id: "2023-01-01")

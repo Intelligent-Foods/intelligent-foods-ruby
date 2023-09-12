@@ -53,8 +53,6 @@ module IntelligentFoods
         ship_to: ship_to,
         delivery_date: delivery_date,
         items: items_json,
-        callback_url: callback_url,
-        callback_headers: "",
       }
     end
 
