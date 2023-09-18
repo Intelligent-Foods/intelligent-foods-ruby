@@ -33,11 +33,11 @@ FactoryBot.define do
   end
 
   factory :order_item, class: "IntelligentFoods::OrderItem" do
-    sequence :id do |n|
-      "d89397e1bad49c3b855df4406e5bf0#{n}"
+    sequence :sku do |n|
+      "IF233#{n}"
     end
-    sequence :protein_id do |n|
-      "c89397e1bad49c3b855df4406e5bf0#{n}"
+    sequence :protein_sku do |n|
+      "IF829#{n}"
     end
     quantity { 1 }
   end

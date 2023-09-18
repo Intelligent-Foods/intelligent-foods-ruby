@@ -4,8 +4,8 @@ module IntelligentFoods
   class OrderItemSerializer < SimpleDelegator
     def to_json
       {
-        id: id,
-        protein_id: protein_id,
+        sku: sku,
+        protein_sku: protein_sku,
         quantity: quantity,
       }
     end
