@@ -6,4 +6,6 @@ module IntelligentFoods
   class OrderNotCancelledError < StandardError; end
 
   class OrderNotCreatedError < StandardError; end
+
+  class AuthenticationError < StandardError; end
 end
