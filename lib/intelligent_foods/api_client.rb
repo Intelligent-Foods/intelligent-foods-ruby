@@ -2,7 +2,8 @@
 
 module IntelligentFoods
   class ApiClient
-    attr_reader :id, :secret, :access_token
+    attr_accessor :access_token
+    attr_reader :id, :secret
 
     def initialize(id: nil, secret: nil, client: nil)
       @id = id
@@ -40,13 +41,26 @@ module IntelligentFoods
       request
     end
 
+    def authenticated?
+      access_token.present?
+    end
+
     protected
 
     attr_reader :encoded_token, :request, :response, :uri
 
     def handle_response(response:)
-      body = parse_response_body(response)
-      OpenStruct.new(data: body, success?: request_successful?(response.code))
+      if authentication_failed?(response.code)
+        handle_authentication_error!
+      else
+        body = parse_response_body(response)
+        OpenStruct.new(data: body, success?: request_successful?(response.code))
+      end
+    end
+
+    def handle_authentication_error!
+      @access_token = nil
+      raise AuthenticationError.new("Authentication failed")
     end
 
     def parse_response_body(response)
@@ -66,6 +80,10 @@ module IntelligentFoods
 
     def request_successful?(response_code)
       response_code.to_i.between?(200, 299)
+    end
+
+    def authentication_failed?(response_code)
+      response_code.to_i == 401
     end
 
     def assign_body(request:, body:)
