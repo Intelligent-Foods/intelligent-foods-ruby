@@ -87,5 +87,37 @@ RSpec.describe IntelligentFoods::ApiClient do
 
       expect(http_client).to have_received(:request).with(request).once
     end
+
+    context "the response code is 204" do
+      it "does not attempt to parse to response body as JSON" do
+        request = build_stubbed_post
+        http_client = double
+        response = OpenStruct.new(code: 204)
+        stub_api_response response: response, http: http_client
+        uri = URI("https://example.com")
+        client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+        allow(JSON).to receive(:parse)
+
+        client.execute_request(request: request, uri: uri)
+
+        expect(JSON).not_to have_received(:parse)
+      end
+    end
+
+    context "the response code is 301" do
+      it "does not attempt to parse to response body as JSON" do
+        request = build_stubbed_post
+        http_client = double
+        response = OpenStruct.new(code: 301)
+        stub_api_response response: response, http: http_client
+        uri = URI("https://example.com")
+        client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+        allow(JSON).to receive(:parse)
+
+        client.execute_request(request: request, uri: uri)
+
+        expect(JSON).not_to have_received(:parse)
+      end
+    end
   end
 end
