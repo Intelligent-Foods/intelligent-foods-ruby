@@ -15,7 +15,8 @@ module ApiHelper
     stub_api_response response: response
   end
 
-  def stub_api_response(response: OpenStruct.new(body: "{}"), http: double)
+  def stub_api_response(response: OpenStruct.new(body: "{}", code: 200),
+                        http: double)
     allow(Net::HTTP).to receive(:start).and_yield(http)
     allow(http).to receive(:request).and_return(response)
   end

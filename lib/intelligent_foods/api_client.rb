@@ -29,8 +29,7 @@ module IntelligentFoods
         request["Authorization"] = authorization.header
         assign_body request: request, body: body
         response = http.request(request)
-        OpenStruct.new(data: JSON.parse(response.body, symbolize_names: true),
-                       success?: response.code.to_i < 400)
+        handle_response(response: response)
       end
     end
 
@@ -44,6 +43,30 @@ module IntelligentFoods
     protected
 
     attr_reader :encoded_token, :request, :response, :uri
+
+    def handle_response(response:)
+      body = parse_response_body(response)
+      OpenStruct.new(data: body, success?: request_successful?(response.code))
+    end
+
+    def parse_response_body(response)
+      return {} if empty_response?(response.code)
+      return {} if redirection?(response.code)
+
+      JSON.parse(response.body, symbolize_names: true)
+    end
+
+    def empty_response?(response_code)
+      response_code.to_i == 204
+    end
+
+    def redirection?(response_code)
+      response_code.to_i.between?(300, 399)
+    end
+
+    def request_successful?(response_code)
+      response_code.to_i.between?(200, 299)
+    end
 
     def assign_body(request:, body:)
       return if body.nil?
