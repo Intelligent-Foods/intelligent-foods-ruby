@@ -17,6 +17,7 @@ module IntelligentFoods
       order = build(data)
       order[:items] = OrderItem.build(data[:items])
       order[:ship_to] = Recipient.build(data[:ship_to])
+      order[:shipments] = Shipment.build_from_array(data[:shipments])
       order
     end
 

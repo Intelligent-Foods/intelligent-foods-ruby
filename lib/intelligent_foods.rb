@@ -19,6 +19,7 @@ require "intelligent_foods/resources/menu_item"
 require "intelligent_foods/serializers/menu_item_serializer"
 require "intelligent_foods/resources/recipient"
 require "intelligent_foods/serializers/recipient_serializer"
+require "intelligent_foods/resources/shipment"
 require "intelligent_foods/version"
 
 module IntelligentFoods

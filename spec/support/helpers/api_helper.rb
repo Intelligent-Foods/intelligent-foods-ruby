@@ -50,8 +50,21 @@ module ApiHelper
     stubbed_response
   end
 
-  def build_order_response
-    read_order_api_response
+  def build_order_response(shipments: [])
+    stubbed_response = read_order_api_response
+    stubbed_response[:shipments] = shipments
+    stubbed_response
+  end
+
+  def stubbed_shipments
+    response = read_order_api_response
+    response[:shipments]
+  end
+
+  def stub_shipments(number_of_shipments: nil)
+    response = stubbed_shipments
+    however_many_items = number_of_shipments || response.size
+    response.first(however_many_items)
   end
 
   def stubbed_menu_items

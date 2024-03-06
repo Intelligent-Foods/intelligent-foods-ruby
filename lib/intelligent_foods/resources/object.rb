@@ -6,6 +6,10 @@ module IntelligentFoods
       JSON.parse(data.to_json, object_class: self)
     end
 
+    def self.build_from_array(array)
+      array.map { |object| build(object) }
+    end
+
     protected
 
     def raise_error(error_class, response)

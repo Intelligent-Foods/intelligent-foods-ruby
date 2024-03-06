@@ -59,7 +59,9 @@
       "delivery_status": "UNKNOWN",
       "carrier": "FEDEX",
       "shipment_number": 1,
-      "total_shipments": 2
+      "total_shipments": 2,
+      "tracking_code": "123456789",
+      "tracking_url": "https://fedex.com/track/123456789"
     },
     {
       "id": "4a4f71f35a7145c184d7130cb2107048",
@@ -88,7 +90,9 @@
       "delivery_status": "UNKNOWN",
       "carrier": "FEDEX",
       "shipment_number": 2,
-      "total_shipments": 2
+      "total_shipments": 2,
+      "tracking_code": "123456789",
+      "tracking_url": "https://fedex.com/track/123456789"
     }
   ]
 }

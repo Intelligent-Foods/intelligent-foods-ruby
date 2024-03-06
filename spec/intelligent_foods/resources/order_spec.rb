@@ -142,4 +142,16 @@ RSpec.describe IntelligentFoods::Order do
       end
     end
   end
+
+  describe ".build_from_response" do
+    it "assigns the correct number of shipments" do
+      shipment = stub_shipments(number_of_shipments: 1).first
+      data = build_order_response(shipments: [shipment])
+      order = IntelligentFoods::Order.build_from_response(data)
+
+      result = order.shipments.size
+
+      expect(result).to eq(1)
+    end
+  end
 end
