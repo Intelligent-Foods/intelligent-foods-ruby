@@ -22,8 +22,7 @@ module IntelligentFoods
 
     def create!
       uri = URI("#{IntelligentFoods.base_url}/order")
-      request = client.build_request_with_body(uri: uri,
-                                               body: request_body)
+      request = client.build_request_with_body(uri: uri, body: request_body)
       response = client.execute_request(request: request, uri: uri)
       if response.success?
         Order::build_from_response(response.data)
@@ -91,4 +90,3 @@ module IntelligentFoods
     end
   end
 end
-

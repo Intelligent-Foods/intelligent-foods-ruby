@@ -41,7 +41,7 @@ module IntelligentFoods
     end
 
     def client
-      @client ||=
+      @client =
         IntelligentFoods::ApiClient.new(id: client_id, secret: client_secret)
     end
 
