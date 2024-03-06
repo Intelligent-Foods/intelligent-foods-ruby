@@ -12,14 +12,9 @@ module IntelligentFoods
     end
 
     def authenticate!
-      uri = URI("#{IntelligentFoods.base_auth_url}/oauth2/token")
-      request = Net::HTTP::Post.new(uri)
-      request["content-type"] = "application/x-www-form-urlencoded"
-      body = { "grant_type" => "client_credentials" }
-      authorization = IntelligentFoods::Authorization::Basic.
-                      factory(client_id: id, client_secret: secret)
-      response = execute_request(request: request, uri: uri, body: body,
-                                 authorization: authorization)
+      auth = IntelligentFoods::Authentication.new(client: self)
+      response = execute_request(request: auth.request, uri: auth.uri,
+                                 body: auth.body)
       handle_authentication_response(response: response.data)
       self
     end
@@ -27,7 +22,7 @@ module IntelligentFoods
     def execute_request(request:, uri:, body: nil,
                         authorization: default_authorization)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        request["Authorization"] = authorization.header
+        #request["Authorization"] = authorization.header
         assign_body request: request, body: body
         response = http.request(request)
         handle_response(response: response)

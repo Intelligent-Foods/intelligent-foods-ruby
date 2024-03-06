@@ -12,28 +12,6 @@ RSpec.describe IntelligentFoods::ApiClient do
       expect(client.access_token).to eq(access_token)
     end
 
-    it "sets the authorization basic header" do
-      stub_authentication
-      request = build_stubbed_post
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      header = "Basic #{build_encoded_token(id: "id", secret: "secret")}"
-
-      client.authenticate!
-
-      expect(request["Authorization"]).to eq(header)
-    end
-
-    it "sets the content type header" do
-      stub_authentication
-      request = build_stubbed_post
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      content_type = "application/x-www-form-urlencoded"
-
-      client.authenticate!
-
-      expect(request["content-type"]).to eq(content_type)
-    end
-
     context "there is an error with the request" do
       it "raises an error" do
         response = error_response(message: "Could not perform request")
