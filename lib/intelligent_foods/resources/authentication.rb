@@ -10,6 +10,7 @@ module IntelligentFoods
       request = Net::HTTP::Post.new(uri)
       request["Authorization"] = basic_authorization.header
       request["content-type"] = "application/x-www-form-urlencoded"
+      request.set_form_data(body)
       request
     end
 

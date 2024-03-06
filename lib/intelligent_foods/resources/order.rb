@@ -34,7 +34,7 @@ module IntelligentFoods
 
     def cancel!
       uri = URI("#{IntelligentFoods.base_url}/order/#{id}")
-      request = Net::HTTP::Delete.new(uri)
+      request = build_delete_request(uri: uri)
       response = client.execute_request(request: request, uri: uri)
       if response.success?
         mark_as_cancelled

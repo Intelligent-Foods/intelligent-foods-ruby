@@ -26,33 +26,6 @@ RSpec.describe IntelligentFoods::ApiClient do
   end
 
   describe "#execute_request" do
-    it "sets the authorization bearer header" do
-      stub_api_response
-      request = build_stubbed_post
-      uri = URI("https://example.com")
-      client = IntelligentFoods::ApiClient.new
-      auth = IntelligentFoods::Authorization::Bearer.new(token: "1234")
-      allow(IntelligentFoods::Authorization::Bearer).to receive(:new).
-        and_return(auth)
-      header = "Bearer 1234"
-
-      client.execute_request(request: request, uri: uri)
-
-      expect(request["Authorization"]).to eq(header)
-    end
-
-    it "sets the request body" do
-      stub_api_response
-      request = build_stubbed_post
-      uri = URI("https://example.com")
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      body = { "grant_type" => "client_credentials" }
-
-      client.execute_request(request: request, uri: uri, body: body)
-
-      expect(request.body).to eq("grant_type=client_credentials")
-    end
-
     it "makes the request" do
       request = build_stubbed_post
       http_client = double

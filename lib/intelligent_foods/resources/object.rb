@@ -8,6 +8,18 @@ module IntelligentFoods
 
     protected
 
+    def build_post_request(uri:, body:)
+      client.build_post_request(uri: uri, body: body)
+    end
+
+    def build_get_request(uri:)
+      client.build_get_request(uri: uri)
+    end
+
+    def build_delete_request(uri:)
+      client.build_delete_request(uri: uri)
+    end
+
     def raise_error(error_class, response)
       error_message = build_error_message(response)
       raise error_class.new(error_message)

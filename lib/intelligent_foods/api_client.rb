@@ -13,27 +13,38 @@ module IntelligentFoods
 
     def authenticate!
       auth = IntelligentFoods::Authentication.new(client: self)
-      response = execute_request(request: auth.request, uri: auth.uri,
-                                 body: auth.body)
+      response = execute_request(request: auth.request, uri: auth.uri)
       handle_authentication_response(response: response.data)
       self
     end
 
-    def execute_request(request:, uri:, body: nil,
-                        authorization: default_authorization)
+    def build_post_request(uri:, body: nil)
+      request = Net::HTTP::Post.new(uri)
+      request["Authorization"] = authorization.header
+      request["content-type"] = "application/json"
+      unless body.nil?
+        request.body = body.to_json
+      end
+      request
+    end
+
+    def build_get_request(uri:)
+      request = Net::HTTP::Get.new(uri)
+      request["Authorization"] = authorization.header
+      request
+    end
+
+    def build_delete_request(uri:)
+      request = Net::HTTP::Delete.new(uri)
+      request["Authorization"] = authorization.header
+      request
+    end
+
+    def execute_request(request:, uri:)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        #request["Authorization"] = authorization.header
-        assign_body request: request, body: body
         response = http.request(request)
         handle_response(response: response)
       end
-    end
-
-    def build_request_with_body(uri:, body:)
-      request = Net::HTTP::Post.new(uri)
-      request.body = body.to_json
-      request["content-type"] = "application/json"
-      request
     end
 
     def authenticated?
@@ -81,11 +92,6 @@ module IntelligentFoods
       response_code.to_i == 401
     end
 
-    def assign_body(request:, body:)
-      return if body.nil?
-      request.set_form_data(body)
-    end
-
     def handle_authentication_response(response:)
       if response_has_errors?(response)
         handle_errors(response)
@@ -103,7 +109,7 @@ module IntelligentFoods
       fail IntelligentFoods::Error.new(error)
     end
 
-    def default_authorization
+    def authorization
       IntelligentFoods::Authorization::Bearer.new(token: access_token)
     end
   end

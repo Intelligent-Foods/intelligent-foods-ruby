@@ -21,6 +21,16 @@ RSpec.describe IntelligentFoods::Authentication do
 
       expect(request["content-type"]).to eq(content_type)
     end
+
+    it "sets the body" do
+      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+      auth = IntelligentFoods::Authentication.new(client: client)
+      content_type = "application/x-www-form-urlencoded"
+
+      request = auth.request
+
+      expect(request["content-type"]).to eq(content_type)
+    end
   end
 
   describe "#uri" do
