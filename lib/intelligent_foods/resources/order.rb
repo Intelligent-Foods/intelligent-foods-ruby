@@ -28,7 +28,7 @@ module IntelligentFoods
         Order::build_from_response(response.data)
       else
         mark_as_invalid
-        raise_error(OrderNotCreatedError, response)
+        raise OrderNotCreatedError.build(response)
       end
     end
 
@@ -41,7 +41,7 @@ module IntelligentFoods
         self
       else
         mark_as_invalid
-        raise_error(OrderNotCancelledError, response)
+        raise OrderNotCancelledError.build(response)
       end
     end
 

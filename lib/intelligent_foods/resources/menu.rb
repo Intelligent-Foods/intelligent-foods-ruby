@@ -32,7 +32,7 @@ module IntelligentFoods
       if response.success?
         Menu.build_from_response(response.data)
       else
-        raise MenuNotFoundError
+        raise MenuNotFoundError.build(response)
       end
     end
   end

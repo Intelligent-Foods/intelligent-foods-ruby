@@ -1,13 +1,18 @@
 module ApiHelper
   MENU_API_RESPONSE = "spec/support/fixtures/menu_response.json".freeze
   ORDER_API_RESPONSE = "spec/support/fixtures/order_response.json".freeze
+  ERROR_API_RESPONSE = "spec/support/fixtures/error_response.json".freeze
 
   def authentication_response(access_token:)
     build_response body: { access_token: access_token }
   end
 
-  def error_response(message: "Unknown error", http_status_code: 400)
-    build_response(body: { error: message }, http_status_code: http_status_code)
+  def error_response(message: "Unknown error", http_status_code: 400, body: {})
+    if body.blank?
+      body = read_error_response
+      body[:title] = message
+    end
+    build_response(body: body, http_status_code: http_status_code)
   end
 
   def stub_authentication(access_token: "indifferenttoken")
@@ -33,6 +38,10 @@ module ApiHelper
 
   def build_encoded_token(id:, secret:)
     Base64.strict_encode64("#{id}:#{secret}")
+  end
+
+  def read_error_response
+    parse_json_file(ERROR_API_RESPONSE)
   end
 
   def read_menu_api_response
@@ -70,5 +79,4 @@ module ApiHelper
   def parse_json_file(path)
     JSON.parse(File.read(path), symbolize_names: true)
   end
-
 end

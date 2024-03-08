@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module IntelligentFoods
-  class MenuNotFoundError < StandardError; end
+  class MenuNotFoundError < ApiError; end
 
-  class OrderNotCancelledError < StandardError; end
+  class OrderNotCancelledError < ApiError; end
 
-  class OrderNotCreatedError < StandardError; end
+  class OrderNotCreatedError < ApiError; end
 
-  class AuthenticationError < StandardError; end
+  class AuthenticationError < ApiError; end
 end

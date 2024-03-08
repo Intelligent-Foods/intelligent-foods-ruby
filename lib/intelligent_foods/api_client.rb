@@ -60,7 +60,8 @@ module IntelligentFoods
 
     def handle_authentication_error!
       @access_token = nil
-      raise AuthenticationError.new("Authentication failed")
+      raise AuthenticationError.new(status: 401,
+                                    title: "Authentication Failed")
     end
 
     def parse_response_body(response)

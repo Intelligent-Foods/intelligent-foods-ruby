@@ -1,0 +1,10 @@
+{
+  "status": 400,
+  "title": "Request Validation Error",
+  "detail": "string does not match regex \"^[0-9a-f]",
+  "details": {
+    "description": "string does not match regex \"^[0-9a-f]",
+    "reference_id": 1234,
+    "item_id": 1234
+  }
+}
