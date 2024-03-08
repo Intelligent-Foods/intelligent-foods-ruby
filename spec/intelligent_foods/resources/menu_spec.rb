@@ -54,8 +54,8 @@ RSpec.describe IntelligentFoods::Menu do
     context "the id does not match a menu" do
       it "raises a IntelligentFoods::MenuNotFound error" do
         menu_id = "2023-01-01"
-        body = build_error("Menu not found", menu_id)
-        response = build_response(body: body, http_status_code: 400)
+        response = error_response(message: "Menu not found",
+                                  http_status_code: 400)
         stub_api_response response: response
 
         expect {
@@ -63,16 +63,5 @@ RSpec.describe IntelligentFoods::Menu do
         }.to raise_error(IntelligentFoods::MenuNotFoundError)
       end
     end
-  end
-
-  def build_error(message, menu_id)
-    {
-      type: "https://api.sunbasket.com/partner/problem/menu_not_found",
-      status: 404,
-      title: message,
-      instance: "https://api.sunbasket.com/partner/menu/2020-09-03",
-      detail: message,
-      extra: { menu_id: menu_id },
-    }
   end
 end

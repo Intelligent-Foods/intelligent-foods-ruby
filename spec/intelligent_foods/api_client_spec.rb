@@ -36,7 +36,8 @@ RSpec.describe IntelligentFoods::ApiClient do
 
     context "there is an error with the request" do
       it "raises an error" do
-        response = error_response(message: "Could not perform request")
+        response_body = { error: "Could not perform request" }
+        response = error_response(body: response_body)
         stub_api_response response: response
         client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
 
