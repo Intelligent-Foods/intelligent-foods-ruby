@@ -20,7 +20,6 @@ module IntelligentFoods
 
     def build_post_request(uri:, body: nil)
       request = Net::HTTP::Post.new(uri)
-      request["Authorization"] = authorization.header
       request["content-type"] = "application/json"
       unless body.nil?
         request.body = body.to_json
@@ -29,19 +28,16 @@ module IntelligentFoods
     end
 
     def build_get_request(uri:)
-      request = Net::HTTP::Get.new(uri)
-      request["Authorization"] = authorization.header
-      request
+      Net::HTTP::Get.new(uri)
     end
 
     def build_delete_request(uri:)
-      request = Net::HTTP::Delete.new(uri)
-      request["Authorization"] = authorization.header
-      request
+      Net::HTTP::Delete.new(uri)
     end
 
     def execute_request(request:, uri:)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        request["Authorization"] = authorization.header
         response = http.request(request)
         handle_response(response: response)
       end
