@@ -34,8 +34,13 @@ module IntelligentFoods
       end
     end
 
-    def build_request_with_body(uri:, body:)
-      request = Net::HTTP::Post.new(uri)
+    def build_patch_request(uri:, body:)
+      build_request_with_body(uri: uri, body: body,
+                              http_method: Net::HTTP::Patch)
+    end
+
+    def build_request_with_body(uri:, body:, http_method: Net::HTTP::Post)
+      request = http_method.new(uri)
       request.body = body.to_json
       request["content-type"] = "application/json"
       request

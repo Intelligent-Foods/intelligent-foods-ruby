@@ -45,6 +45,18 @@ module IntelligentFoods
       end
     end
 
+    def update!
+      uri = URI("#{IntelligentFoods.base_url}/order/#{id}")
+      request = client.build_patch_request(uri: uri, body: update_request_body)
+      response = client.execute_request(request: request, uri: uri)
+      if response.success?
+        Order::build_from_response(response.data)
+      else
+        mark_as_invalid
+        raise_error(OrderNotUpdatedError, response)
+      end
+    end
+
     def request_body
       @request_body ||= {
         menu_id: menu.id,
@@ -52,6 +64,12 @@ module IntelligentFoods
         ship_to: ship_to,
         delivery_date: delivery_date,
         items: items_json,
+      }
+    end
+
+    def update_request_body
+      @update_request_body ||= {
+        ship_to: ship_to,
       }
     end
 

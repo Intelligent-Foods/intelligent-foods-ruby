@@ -44,6 +44,19 @@ module ApiHelper
     parse_json_file(ERROR_API_RESPONSE)
   end
 
+  def build_stubbed_order
+    recipient = build(:recipient)
+    menu = build(:menu, id: "2023-01-01")
+    order_item = build(:order_item)
+    callback_url = "https://api.domain.com/callback"
+    IntelligentFoods::Order.new(menu: menu,
+                                recipient: recipient,
+                                delivery_date: "2023-01-07",
+                                items: [order_item],
+                                external_id: "1337",
+                                callback_url: callback_url)
+  end
+
   def read_menu_api_response
     parse_json_file(MENU_API_RESPONSE)
   end

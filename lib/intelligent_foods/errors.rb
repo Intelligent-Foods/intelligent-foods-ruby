@@ -8,4 +8,6 @@ module IntelligentFoods
   class OrderNotCreatedError < ApiError; end
 
   class AuthenticationError < ApiError; end
+
+  class OrderNotUpdatedError < ApiError; end
 end

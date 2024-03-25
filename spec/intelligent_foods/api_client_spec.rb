@@ -165,6 +165,16 @@ RSpec.describe IntelligentFoods::ApiClient do
       end
     end
 
+    describe "#build_patch_request" do
+      it "builds a request using the Patch HTTP method" do
+        client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+
+        result = client.build_patch_request(uri: "test.com", body: {})
+
+        expect(result.method).to eq("PATCH")
+      end
+    end
+
     describe "#authenticated?" do
       it "is not authenticated" do
         client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")

@@ -142,4 +142,45 @@ RSpec.describe IntelligentFoods::Order do
       end
     end
   end
+
+  describe "#update!" do
+    it "updates the order" do
+      order = build_stubbed_order
+      body = build_order_response
+      response = build_response(body: body)
+      stub_api_response response: response
+
+      result = order.update!
+
+      expect(result).to be_accepted
+    end
+
+    context "the response code is not 200" do
+      it "raises a OrderNotUpdatedError" do
+        order = build_stubbed_order
+        response = error_response(message: "Order Not Found",
+                                  http_status_code: 404)
+        stub_api_response response: response
+
+        expect {
+          order.update!
+        }.to raise_error(IntelligentFoods::OrderNotUpdatedError)
+      end
+
+      it "marks the order as not valid" do
+        order = build_stubbed_order
+        response = error_response(message: "Order Not Found",
+                                  http_status_code: 404)
+        stub_api_response response: response
+
+        begin
+          order.update!
+        rescue IntelligentFoods::OrderNotUpdatedError
+          # noop
+        end
+
+        expect(order).not_to be_valid
+      end
+    end
+  end
 end
