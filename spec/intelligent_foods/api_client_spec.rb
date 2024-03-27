@@ -175,6 +175,16 @@ RSpec.describe IntelligentFoods::ApiClient do
       end
     end
 
+    describe "#build_post_request" do
+      it "builds a request using the Post HTTP method" do
+        client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+
+        result = client.build_post_request(uri: "test.com", body: {})
+
+        expect(result.method).to eq("POST")
+      end
+    end
+
     describe "#authenticated?" do
       it "is not authenticated" do
         client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")

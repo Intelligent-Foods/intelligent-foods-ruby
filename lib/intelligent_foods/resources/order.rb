@@ -22,7 +22,7 @@ module IntelligentFoods
 
     def create!
       uri = URI("#{IntelligentFoods.base_url}/order")
-      request = client.build_request_with_body(uri: uri, body: request_body)
+      request = client.build_post_request(uri: uri, body: request_body)
       response = client.execute_request(request: request, uri: uri)
       if response.success?
         Order::build_from_response(response.data)
@@ -53,7 +53,7 @@ module IntelligentFoods
         Order::build_from_response(response.data)
       else
         mark_as_invalid
-        raise_error(OrderNotUpdatedError, response)
+        raise OrderNotUpdatedError.build(response)
       end
     end
 
@@ -68,7 +68,7 @@ module IntelligentFoods
     end
 
     def update_request_body
-      @update_request_body ||= {
+      {
         ship_to: ship_to,
       }
     end
