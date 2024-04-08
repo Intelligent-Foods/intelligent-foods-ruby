@@ -70,6 +70,23 @@ RSpec.describe IntelligentFoods::Order do
       expect(result[:items]).to eq(expected_output)
     end
 
+    it "assigns the reference id as a string in the request body" do
+      recipient = build(:recipient)
+      menu = build(:menu, id: "2023-01-01")
+      order_item = build(:order_item, quantity: 2)
+      order = IntelligentFoods::Order.new(menu: menu,
+                                          recipient: recipient,
+                                          items: [order_item],
+                                          external_id: 1234)
+      body = build_order_response
+      response = build_response(body: body)
+      stub_api_response response: response
+
+      result = order.request_body
+
+      expect(result[:reference_id]).to be_an_instance_of(String)
+    end
+
     context "the response code is not 201" do
       it "raises a OrderNotCreatedError" do
         recipient = build(:recipient)
