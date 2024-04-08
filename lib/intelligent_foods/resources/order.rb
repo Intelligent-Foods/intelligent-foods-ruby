@@ -48,7 +48,7 @@ module IntelligentFoods
     def request_body
       @request_body ||= {
         menu_id: menu.id,
-        reference_id: external_id,
+        reference_id: external_id.to_s,
         ship_to: ship_to,
         delivery_date: delivery_date,
         items: items_json,
