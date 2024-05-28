@@ -30,6 +30,7 @@ module IntelligentFoods
 
     def configure
       yield self
+      refresh_client
       configure_environment
     end
 
@@ -42,8 +43,12 @@ module IntelligentFoods
     end
 
     def client
-      @client =
+      @client ||=
         IntelligentFoods::ApiClient.new(id: client_id, secret: client_secret)
+    end
+
+    def refresh_client
+      @client = nil
     end
 
     protected
