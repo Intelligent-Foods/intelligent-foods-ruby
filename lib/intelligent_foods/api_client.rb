@@ -24,6 +24,25 @@ module IntelligentFoods
       self
     end
 
+    def build_patch_request(uri:, body: nil)
+      build_request_with_body(uri: uri, body: body,
+                              http_method: Net::HTTP::Patch)
+    end
+
+    def build_post_request(uri:, body: nil)
+      build_request_with_body(uri: uri, body: body,
+                              http_method: Net::HTTP::Post)
+    end
+
+    def build_request_with_body(uri:, body:, http_method:)
+      request = http_method.new(uri)
+      request["content-type"] = "application/json"
+      unless body.nil?
+        request.body = body.to_json
+      end
+      request
+    end
+
     def execute_request(request:, uri:, body: nil,
                         authorization: default_authorization)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
@@ -32,13 +51,6 @@ module IntelligentFoods
         response = http.request(request)
         handle_response(response: response)
       end
-    end
-
-    def build_request_with_body(uri:, body:)
-      request = Net::HTTP::Post.new(uri)
-      request.body = body.to_json
-      request["content-type"] = "application/json"
-      request
     end
 
     def authenticated?
