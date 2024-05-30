@@ -118,6 +118,27 @@ RSpec.describe IntelligentFoods::Order do
         expect(order).not_to be_valid
       end
     end
+
+    context "validation options are provided" do
+      it "assigns the validation options in the request body" do
+        recipient = build(:recipient)
+        menu = build(:menu, id: "2023-01-01")
+        order_item = build(:order_item, quantity: 2)
+        order = IntelligentFoods::Order.new(recipient: recipient, menu: menu,
+                                            items: [order_item],
+                                            skip_temperature_check: true)
+        body = build_order_response
+        response = build_response(body: body)
+        stub_api_response response: response
+        expected_output = {
+          skip_temperature_check: true, skip_address_check: false
+        }
+
+        result = order.request_body
+
+        expect(result[:validation_options]).to eq(expected_output)
+      end
+    end
   end
 
   describe "#cancel!" do
