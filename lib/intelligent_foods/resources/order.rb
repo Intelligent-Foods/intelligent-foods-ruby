@@ -9,8 +9,12 @@ module IntelligentFoods
     INITIALIZED = "initialized"
     PROCESSED = "processed"
 
-    def initialize(args = {})
+    attr_reader :skip_temperature_check, :skip_address_check
+
+    def initialize(skip_temperature_check: false, skip_address_check: false, **)
       super
+      @skip_temperature_check = skip_temperature_check
+      @skip_address_check = skip_address_check
     end
 
     def self.build_from_response(data)
@@ -52,6 +56,7 @@ module IntelligentFoods
         ship_to: ship_to,
         delivery_date: delivery_date,
         items: items_json,
+        validation_options: validation_options,
       }
     end
 
@@ -87,6 +92,13 @@ module IntelligentFoods
 
     def ship_to
       RecipientSerializer.new(recipient).to_json
+    end
+
+    def validation_options
+      {
+        skip_temperature_check: skip_temperature_check,
+        skip_address_check: skip_address_check,
+      }
     end
   end
 end
