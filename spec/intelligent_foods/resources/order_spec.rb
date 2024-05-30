@@ -145,7 +145,7 @@ RSpec.describe IntelligentFoods::Order do
 
   describe "#update!" do
     it "updates the order" do
-      order = build_stubbed_order
+      order = build(:order)
       body = build_order_response
       response = build_response(body: body)
       stub_api_response response: response
@@ -157,7 +157,7 @@ RSpec.describe IntelligentFoods::Order do
 
     context "the response code is not 200" do
       it "raises a OrderNotUpdatedError" do
-        order = build_stubbed_order
+        order = build(:order)
         response = error_response(message: "Order Not Found",
                                   http_status_code: 404)
         stub_api_response response: response
@@ -168,7 +168,7 @@ RSpec.describe IntelligentFoods::Order do
       end
 
       it "marks the order as not valid" do
-        order = build_stubbed_order
+        order = build(:order)
         response = error_response(message: "Order Not Found",
                                   http_status_code: 404)
         stub_api_response response: response
