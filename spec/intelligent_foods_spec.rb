@@ -32,23 +32,12 @@ RSpec.describe IntelligentFoods do
   end
 
   describe "#base_url" do
-    context "environment is preview" do
-      it "returns the correct url" do
-        IntelligentFoods.configure do |config|
-          config.environment = "preview"
-        end
-        preview_url = "https://api.sunbasket-dev.com/partner/v1"
-
-        expect(IntelligentFoods.base_url).to eq(preview_url)
-      end
-    end
-
     context "environment is staging" do
       it "returns the correct url" do
         IntelligentFoods.configure do |config|
           config.environment = "staging"
         end
-        staging_url = "https://api.sunbasket-staging.com/partner/v1"
+        staging_url = "https://api.sunbasket.dev/partner/v1"
 
         expect(IntelligentFoods.base_url).to eq(staging_url)
       end
@@ -70,7 +59,7 @@ RSpec.describe IntelligentFoods do
         IntelligentFoods.configure do |config|
           config.environment = "asdf"
         end
-        preview_url = "https://api.sunbasket-dev.com/partner/v1"
+        preview_url = "https://api.sunbasket.dev/partner/v1"
 
         expect(IntelligentFoods.base_url).to eq(preview_url)
       end
@@ -78,25 +67,13 @@ RSpec.describe IntelligentFoods do
   end
 
   describe "#base_auth_url" do
-    context "environment is preview" do
-      it "returns the correct url" do
-        IntelligentFoods.configure do |config|
-          config.environment = "preview"
-        end
-        preview_url =
-          "https://sunbasket-partner-dev.auth.us-west-2.amazoncognito.com"
-
-        expect(IntelligentFoods.base_auth_url).to eq(preview_url)
-      end
-    end
-
     context "environment is staging" do
       it "returns the correct url" do
         IntelligentFoods.configure do |config|
           config.environment = "staging"
         end
         staging_url =
-          "https://sunbasket-partner-staging.auth.us-west-2.amazoncognito.com"
+          "https://api.sunbasket.dev/partner/v1/token"
 
         expect(IntelligentFoods.base_auth_url).to eq(staging_url)
       end
@@ -108,7 +85,7 @@ RSpec.describe IntelligentFoods do
           config.environment = "production"
         end
         production_url =
-          "https://sunbasket-partner.auth.us-west-2.amazoncognito.com"
+          "https://api.sunbasket.com/partner/v1/token"
 
         expect(IntelligentFoods.base_auth_url).to eq(production_url)
       end
@@ -120,7 +97,7 @@ RSpec.describe IntelligentFoods do
           config.environment = "asdf"
         end
         preview_url =
-          "https://sunbasket-partner-dev.auth.us-west-2.amazoncognito.com"
+          "https://api.sunbasket.dev/partner/v1/token"
 
         expect(IntelligentFoods.base_auth_url).to eq(preview_url)
       end
