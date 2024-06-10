@@ -12,7 +12,7 @@ module IntelligentFoods
     end
 
     def authenticate!
-      uri = URI("#{IntelligentFoods.base_auth_url}/oauth2/token")
+      uri = URI(IntelligentFoods.base_auth_url)
       request = Net::HTTP::Post.new(uri)
       request["content-type"] = "application/x-www-form-urlencoded"
       body = { "grant_type" => "client_credentials" }
