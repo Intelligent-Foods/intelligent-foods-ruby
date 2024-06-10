@@ -34,12 +34,8 @@ module IntelligentFoods
       configure_environment
     end
 
-    def base_auth_url
-      @base_auth_url = "https://#{auth_domain}.auth.us-west-2.amazoncognito.com"
-    end
-
     def base_url
-      @base_url = "https://api.#{domain}.com/partner/v1"
+      @base_url = "https://api.sunbasket.#{tld}/partner/v1"
     end
 
     def client
@@ -53,19 +49,13 @@ module IntelligentFoods
 
     protected
 
-    attr_reader :domain, :auth_domain
+    attr_reader :tld
 
     def configure_environment
-      case environment
-      when "production"
-        @auth_domain = "sunbasket-partner"
-        @domain = "sunbasket"
-      when "staging"
-        @auth_domain = "sunbasket-partner-staging"
-        @domain = "sunbasket-staging"
+      if environment == "production"
+        @tld = "com"
       else
-        @auth_domain = "sunbasket-partner-dev"
-        @domain = "sunbasket-dev"
+        @tld = "dev"
       end
     end
 
