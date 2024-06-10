@@ -23,11 +23,22 @@ RSpec.describe IntelligentFoods::ApiClient do
       expect(request["Authorization"]).to eq(header)
     end
 
+    it "includes the client id and client secret in the body" do
+      stub_authentication
+      request = build_stubbed_post
+      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
+      body = { client_id: "id", client_secret: "secret" }
+
+      client.authenticate!
+
+      expect(request.body).to eq(body.to_json)
+    end
+
     it "sets the content type header" do
       stub_authentication
       request = build_stubbed_post
       client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      content_type = "application/x-www-form-urlencoded"
+      content_type = "application/json"
 
       client.authenticate!
 
@@ -62,18 +73,6 @@ RSpec.describe IntelligentFoods::ApiClient do
       client.execute_request(request: request, uri: uri)
 
       expect(request["Authorization"]).to eq(header)
-    end
-
-    it "sets the request body" do
-      stub_api_response
-      request = build_stubbed_post
-      uri = URI("https://example.com")
-      client = IntelligentFoods::ApiClient.new(id: "id", secret: "secret")
-      body = { "grant_type" => "client_credentials" }
-
-      client.execute_request(request: request, uri: uri, body: body)
-
-      expect(request.body).to eq("grant_type=client_credentials")
     end
 
     it "makes the request" do
