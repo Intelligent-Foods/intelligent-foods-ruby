@@ -1,0 +1,6 @@
+{
+  "type" : "object",
+  "required": ["callback_url", "callback_headers"],
+  "callback_url": { "type": "string" },
+  "callback_headers": { "type": "string" }
+}
