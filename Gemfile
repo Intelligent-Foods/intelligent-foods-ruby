@@ -9,6 +9,7 @@ gemspec
 
 group :development, :test do
   gem "factory_bot"
+  gem "json-schema"
   gem "rake", "~> 13.0"
   gem "rspec", "~> 3.0"
   gem "rubocop", "1.22.1"

@@ -1,4 +1,19 @@
 FactoryBot.define do
+  factory :order, class: "IntelligentFoods::Order" do
+    menu
+    recipient
+    delivery_date { Date.today.to_s }
+    items { [build(:order_item)] }
+    sequence :external_id do |n|
+      "d89397e1bad49c3b855df4406e5bf0#{n}"
+    end
+
+    trait :with_callback_attributes do
+      callback_url { "http://test.com/api/callback" }
+      callback_headers { "Auth Bearer sd8ashidjkhj" }
+    end
+  end
+
   factory :recipient, class: "IntelligentFoods::Recipient" do
     name { "First Name" }
     street1 { "123 Main Street" }

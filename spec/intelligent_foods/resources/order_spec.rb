@@ -6,13 +6,11 @@ RSpec.describe IntelligentFoods::Order do
       recipient = build(:recipient)
       menu = build(:menu, id: "2023-01-01")
       order_item = build(:order_item)
-      callback_url = "https://api.domain.com/callback"
       order = IntelligentFoods::Order.new(menu: menu,
                                           recipient: recipient,
                                           delivery_date: "2023-01-07",
                                           items: [order_item],
-                                          external_id: "1337",
-                                          callback_url: callback_url)
+                                          external_id: "1337")
       body = build_order_response
       response = build_response(body: body)
       stub_api_response response: response
@@ -20,6 +18,20 @@ RSpec.describe IntelligentFoods::Order do
       result = order.create!
 
       expect(result).to be_accepted
+    end
+
+    context "callback attributes are specified" do
+      it "assigns the callback url and header in the request body" do
+        callback_url = "https://api.domain.com/callback"
+        order = build(:order, callback_url: callback_url)
+        stub_api_response
+        request = Net::HTTP::Post.new("http://domain.com")
+        allow(Net::HTTP::Post).to receive(:new).and_return(request)
+
+        order.create!
+
+        expect(request).to match_response_schema("order_with_callback")
+      end
     end
 
     it "assigns the recipient in the request body" do

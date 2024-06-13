@@ -57,6 +57,8 @@ module IntelligentFoods
         delivery_date: delivery_date,
         items: items_json,
         validation_options: validation_options,
+        callback_url: callback_url,
+        callback_headers: callback_headers,
       }
     end
 

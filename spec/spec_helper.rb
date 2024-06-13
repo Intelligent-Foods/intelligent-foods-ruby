@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "factory_bot"
+require "json-schema"
 require "pry"
 require "intelligent_foods"
 require "webmock"
