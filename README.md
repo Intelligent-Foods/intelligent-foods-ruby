@@ -46,6 +46,15 @@ release a new version, update the version number in `version.rb`, and then run
 git commits and the created tag, and push the `.gem` file to
 [rubygems.org](https://rubygems.org).
 
+## Testing
+
+For `rspec`, add the following line to your `spec/rails_helper.rb` or
+`spec/spec_helper` if `rails_helper` does not exist:
+
+```
+require "intelligent_foods/rspec"
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
