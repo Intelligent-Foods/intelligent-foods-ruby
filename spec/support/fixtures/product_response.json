@@ -1,0 +1,47 @@
+{
+  "code": "string",
+  "name": "string",
+  "status": "DRAFT",
+  "refrigeration_type": "NONE",
+  "refrigeration_level": "STANDARD",
+  "unit_volume": {
+    "value": 0.1
+  },
+  "unit_slots": {
+    "value": 0.1
+  },
+  "ingredients": [
+    {
+      "code": "string",
+      "name": "string",
+      "quantity": 0.1,
+      "unit": "string"
+    }
+  ],
+  "nutrition_facts": {
+    "as_packaged": [
+      {
+        "code": "CALORIES",
+        "amount": 0,
+        "unit": "string"
+      }
+    ],
+    "as_cooked": [
+      {
+        "code": "CALORIES",
+        "amount": 0,
+        "unit": "string"
+      }
+    ]
+  },
+  "allergens": [
+    {
+      "code": "MILK",
+      "source": "NONE"
+    }
+  ],
+  "dietary_tags": [
+    "PESCATARIAN"
+  ]
+}
+

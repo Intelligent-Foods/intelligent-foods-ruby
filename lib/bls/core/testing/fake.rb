@@ -6,6 +6,26 @@ module Bls
       class Fake
         def self.configure(*); end
 
+        class Allergen
+          def self.create(code: "MILK", source: "ANCHOVY")
+            OpenStruct.new(code: code, source: source)
+          end
+        end
+
+        class DietaryTag
+          def self.create(tag: "PESCATARIAN")
+            OpenStruct.new(tag: tag)
+          end
+        end
+
+        class Ingredient
+          def self.create(code: "MILK", name: "ANCHOVY", quantity: 1,
+                          unit: "serving")
+            OpenStruct.new(code: code, name: name, quantity: quantity,
+                           unit: unit)
+          end
+        end
+
         class InventoryLevel
           def self.create(sku: "SKU1", date: Date.today.to_s,
                           distribution_center_name: "WEST_COAST",
@@ -56,6 +76,12 @@ module Bls
           end
         end
 
+        class NutritionFact
+          def self.create(code: "CALORIES", amount: 0, unit: "serving")
+            OpenStruct.new(code: code, amount: amount, unit: unit)
+          end
+        end
+
         class Recipient
           def self.new(name: nil, street1: nil, street2: nil, city: nil,
                        state: nil, zip: nil, zip4: nil, email: nil, phone: nil,
@@ -92,6 +118,15 @@ module Bls
         class OrderItem
           def self.new(sku:, quantity:, protein_sku:)
             OpenStruct.new(sku: sku, quantity: quantity, protein_sku: protein_sku)
+          end
+        end
+
+        class Product
+          def self.new(code:, name:, status: "DRAFT", nutrition_facts: [])
+            OpenStruct.new(code: code, name: name, status: status,
+                           nutrition_facts: nutrition_facts,
+                           allergens: [Fake::Allergen.create],
+                           dietary_tags: [Fake::DietaryTag.create])
           end
         end
 
