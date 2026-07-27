@@ -6,20 +6,25 @@ module Bls
       class Fake
         def self.configure(*); end
 
-        class DistributionCenterInventory
-          def self.create(name: "WEST_COAST", quantity: 100)
-            OpenStruct.new(distribution_center: name, quantity: quantity)
-          end
-        end
-
         class InventoryLevel
           def self.create(sku: "SKU1", date: Date.today.to_s,
-                          dc_inventory: [DistributionCenterInventory.create])
-            inventory_level = OpenStruct.new(
-              date: date,
-              inventory_by_distribution_center: dc_inventory
-            )
-            OpenStruct.new(sku: sku, inventory_levels: [inventory_level])
+                          distribution_center_name: "WEST_COAST",
+                          quantity: 100)
+            OpenStruct.new(sku: sku, date: date,
+                           distribution_center: distribution_center_name,
+                           quantity: quantity)
+          end
+
+          def self.serialize(sku: "SKU1", date: Date.today.to_s,
+                             distribution_center_name: "WEST_COAST",
+                             quantity: 100)
+            create(sku: sku, date: date,
+                   distribution_center_name: distribution_center_name,
+                   quantity: quantity).to_h
+          end
+
+          def self.retrieve_all
+            [Fake::InventoryLevel.create]
           end
         end
 
