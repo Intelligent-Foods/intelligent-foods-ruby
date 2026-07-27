@@ -11,7 +11,26 @@ RSpec.describe Bls::Core::InventoryLevel do
 
       result = Bls::Core::InventoryLevel.retrieve_all
 
-      expect(result.map(&:product_code)).to match_array(product_id)
+      expect(result.map(&:sku)).to match_array(product_id)
+    end
+  end
+
+  describe "#to_json" do
+    it "returns a serialized inventory level" do
+      level = Bls::Core::InventoryLevel.new(sku: "BLS123",
+                                            date: "2026-01-01",
+                                            distribution_center: "WEST_COAST",
+                                            quantity: 100)
+      serialized_level = {
+        sku: "BLS123",
+        date: "2026-01-01",
+        distribution_center: "WEST_COAST",
+        quantity: 100,
+      }
+
+      result = level.to_json
+
+      expect(result).to eq(serialized_level)
     end
   end
 end
